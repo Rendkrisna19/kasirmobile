@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Transaction;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
 class BayarController extends Controller
 {
@@ -12,6 +14,8 @@ class BayarController extends Controller
     {
         $products = Product::all();
         return view('pages.bayar.index', compact('products'));
+
+        
 
         
     }
@@ -41,6 +45,7 @@ class BayarController extends Controller
                 'name' => $product->name,
                 'price' => $product->price,
                 'category' => $product->category,
+                'image' => $product->image,
             ];
         }
 
@@ -92,5 +97,99 @@ class BayarController extends Controller
             'bayar' => $request->bayar,
             'change' => $change,
         ]);
+    }
+
+
+    // =================== CRUD PRODUCT ===================
+
+    // TAMPILKAN SEMUA PRODUK DI DASHBOARD
+    public function dashboardProduct()
+    {
+        $products = Product::all();
+        return view('pages.dashboard.products.index', compact('products'));
+    }
+
+    // TAMPILKAN FORM BUAT PRODUK
+    public function createProduct()
+    {
+        return view('pages.dashboard.products.create');
+    }
+
+    // SIMPAN PRODUK BARU
+    public function storeProduct(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'category' => 'required|string',
+            'price' => 'required|numeric',
+            'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $imageName = time() . '.' . $request->image->extension();
+        $request->image->move(public_path('uploads/products'), $imageName);
+
+        Product::create([
+            'name' => $request->name,
+            'category' => $request->category,
+            'price' => $request->price,
+            'image' => 'uploads/products/' . $imageName,
+        ]);
+
+        return redirect()->route('dashboard.products')->with('success', 'Produk berhasil ditambahkan.');
+    }
+
+    // TAMPILKAN FORM EDIT PRODUK
+    public function editProduct($id)
+    {
+        $product = Product::findOrFail($id);
+        return view('pages.dashboard.products.edit', compact('product'));
+    }
+
+    // UPDATE PRODUK
+    public function updateProduct(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'category' => 'required|string',
+            'price' => 'required|numeric',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        if ($request->hasFile('image')) {
+            // Hapus gambar lama jika ada
+            if (File::exists(public_path($product->image))) {
+                File::delete(public_path($product->image));
+            }
+
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('uploads/products'), $imageName);
+            $product->image = 'uploads/products/' . $imageName;
+        }
+
+        $product->update([
+            'name' => $request->name,
+            'category' => $request->category,
+            'price' => $request->price,
+            'image' => $product->image,
+        ]);
+
+        return redirect()->route('dashboard.products')->with('success', 'Produk berhasil diperbarui.');
+    }
+
+    // HAPUS PRODUK
+    public function destroyProduct($id)
+    {
+        $product = Product::findOrFail($id);
+
+        // Hapus file gambar
+        if (File::exists(public_path($product->image))) {
+            File::delete(public_path($product->image));
+        }
+
+        $product->delete();
+
+        return redirect()->route('dashboard.products')->with('success', 'Produk berhasil dihapus.');
     }
 }
