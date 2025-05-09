@@ -168,7 +168,7 @@
     <!-- Card Login -->
     <div class="card-login">
         <h1 class="text-2xl font-bold text-green-900">Login</h1>
-        <p class="text-green-700 mt-1 text-sm">Sign in to continue</p>
+        {{-- <p class="text-green-700 mt-1 text-sm">Sign in to continue</p> --}}
 
         <!-- Form login -->
         <form action="{{ route('login') }}" method="POST" class="space-y-4">
@@ -187,7 +187,7 @@
         @endif
 
         <div class="footer-login">
-            <a href="#" class="hover:underline">Forgot Password</a>
+            {{-- <a href="#" class="hover:underline">Forgot Password</a> --}}
             <p class="mt-1">www.kasirCaffeCorner.com</p>
         </div>
     </div>

@@ -12,6 +12,7 @@
         <i data-lucide="layout-dashboard" class="h-5 w-5 mb-1"></i>
         Kasir
     </a>
+    <!---->
     <a href="/dashboard/products" class="flex flex-col items-center text-xs {{ Str::startsWith($currentRoute, 'dashboard') ? 'text-green-600' : 'text-gray-400' }}">
         <i data-lucide="settings" class="h-5 w-5 mb-1"></i>
         Settings

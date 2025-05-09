@@ -11,19 +11,10 @@ class ProductSeeder extends Seeder
     {
         $products = [
             // Daging
-            ['name' => 'Daging Sapi Premium', 'category' => 'daging', 'price' => 120000],
-            ['name' => 'Daging Ayam Fillet', 'category' => 'daging', 'price' => 40000],
-          
-      
-            // Seafood
-            ['name' => 'Ikan Salmon Norwegia', 'category' => 'seafood', 'price' => 95000],
-            ['name' => 'Udang Vannamei Besar', 'category' => 'seafood', 'price' => 75000],
-           
-        
-            // Sayur
-            ['name' => 'Sayur Bayam Organik', 'category' => 'sayur', 'price' => 15000],
-            ['name' => 'Broccoli Hijau Segar', 'category' => 'sayur', 'price' => 20000],
-      
+            ['name' => 'Tempe Mendoan', 'category' => 'foods', 'price' => 12000],
+            ['name' => 'Ayam Penyet', 'category' => 'foods', 'price' => 12000],
+            ['name' => 'Ayam pecak', 'category' => 'foods', 'price' => 15000],
+                
         ];
 
         foreach ($products as $product) {

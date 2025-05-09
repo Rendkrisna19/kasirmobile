@@ -8,25 +8,21 @@ use App\Models\Transaction;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
+
 class BayarController extends Controller
 {
     public function index()
     {
         $products = Product::all();
         return view('pages.bayar.index', compact('products'));
-
-        
-
-        
     }
     public function income()
     {
-       
-            $products = Product::all();
-            $todayIncome = Transaction::whereDate('created_at', Carbon::today())->sum('subtotal');
-        
-            return view('pages.index', compact('products', 'todayIncome'));
-        
+
+        $products = Product::all();
+        $todayIncome = Transaction::whereDate('created_at', Carbon::today())->sum('subtotal');
+
+        return view('pages.index', compact('products', 'todayIncome'));
     }
 
     public function addToCart(Request $request)
@@ -191,5 +187,27 @@ class BayarController extends Controller
         $product->delete();
 
         return redirect()->route('dashboard.products')->with('success', 'Produk berhasil dihapus.');
+    }
+
+
+
+    // =================== CATEGORY KASIR FOODS,DRINK,SNACK ===================
+    // Di BayarController.php
+    public function foods()
+    {
+        $products = Product::where('category', 'Foods')->get();
+        return view('pages.category.foods', compact('products'));
+    }
+
+    public function drinks()
+    {
+        $products = Product::where('category', 'Drink')->get();
+        return view('pages.category.drinks', compact('products'));
+    }
+
+    public function snacks()
+    {
+        $products = Product::where('category', 'Snack')->get();
+        return view('pages.category.snacks', compact('products'));
     }
 }

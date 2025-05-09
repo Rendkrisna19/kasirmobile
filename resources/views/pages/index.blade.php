@@ -56,59 +56,40 @@
             
         </div>
         <div class="flex items-center gap-2">
-            <i data-lucide="star" class="text-yellow-400 h-6 w-6"></i>
+            <i data-lucide="book" class="text-yellow-400 h-6 w-6"></i>
             <div>
-                <p class="text-gray-500">P20 Points</p>
-                <p class="font-bold text-gray-800">1.500 pts</p>
+                <p class="text-gray-500">Rekapan bulanan</p>
+                <a href="/rekap" class="font-bold text-gray-800">klik</a>
             </div>
         </div>
     </div>
 
     <!-- Categories -->
     <div class="mb-4">
-        <h2 class="font-bold text-lg text-gray-800 mb-2">Kategori</h2>
-        <div class="grid grid-cols-4 gap-3">
-            <div class="bg-white p-2 rounded-xl flex flex-col items-center justify-center shadow">
-                <i data-lucide="beef" class="h-8 w-8 text-red-500 mb-1"></i>
-                <p class="text-xs font-semibold text-center">Daging</p>
+    <h2 class="font-bold text-lg text-gray-800 mb-2">Kategori</h2>
+    <div class="grid grid-cols-3 gap-3">
+        <a href="{{ route('category.foods') }}">
+            <div class="bg-white p-3 rounded-xl flex flex-col items-center justify-center shadow hover:bg-gray-100 transition">
+                <i data-lucide="pizza" class="h-8 w-8 text-red-500 mb-1"></i>
+                <p class="text-xs font-semibold text-center">Foods</p>
             </div>
+        </a>
 
-            <div class="bg-white p-2 rounded-xl flex flex-col items-center justify-center shadow">
-                <i data-lucide="fish" class="h-8 w-8 text-blue-500 mb-1"></i>
-                <p class="text-xs font-semibold text-center">Seafood</p>
+        <a href="{{ route('category.drinks') }}">
+            <div class="bg-white p-3 rounded-xl flex flex-col items-center justify-center shadow hover:bg-gray-100 transition">
+                <i data-lucide="cup-soda" class="h-8 w-8 text-blue-500 mb-1"></i>
+                <p class="text-xs font-semibold text-center">Drinks</p>
             </div>
+        </a>
 
-            <div class="bg-white p-2 rounded-xl flex flex-col items-center justify-center shadow">
-                <i data-lucide="leaf" class="h-8 w-8 text-green-500 mb-1"></i>
-                <p class="text-xs font-semibold text-center">Sayur</p>
+        <a href="{{ route('category.snacks') }}">
+            <div class="bg-white p-3 rounded-xl flex flex-col items-center justify-center shadow hover:bg-gray-100 transition">
+                <i data-lucide="cookie" class="h-8 w-8 text-yellow-500 mb-1"></i>
+                <p class="text-xs font-semibold text-center">Snacks</p>
             </div>
-
-            <div class="bg-white p-2 rounded-xl flex flex-col items-center justify-center shadow">
-                <i data-lucide="flame" class="h-8 w-8 text-orange-500 mb-1"></i>
-                <p class="text-xs font-semibold text-center">Rempah</p>
-            </div>
-
-            <div class="bg-white p-2 rounded-xl flex flex-col items-center justify-center shadow">
-                <i data-lucide="drumstick" class="h-8 w-8 text-red-400 mb-1"></i>
-                <p class="text-xs font-semibold text-center">Ayam</p>
-            </div>
-
-            <div class="bg-white p-2 rounded-xl flex flex-col items-center justify-center shadow">
-                <i data-lucide="snowflake" class="h-8 w-8 text-blue-300 mb-1"></i>
-                <p class="text-xs font-semibold text-center">Frozenfood</p>
-            </div>
-
-            <div class="bg-white p-2 rounded-xl flex flex-col items-center justify-center shadow">
-                <i data-lucide="sprout" class="h-8 w-8 text-green-400 mb-1"></i>
-                <p class="text-xs font-semibold text-center">Organic</p>
-            </div>
-
-            <div class="bg-white p-2 rounded-xl flex flex-col items-center justify-center shadow">
-                <i data-lucide="milk" class="h-8 w-8 text-yellow-400 mb-1"></i>
-                <p class="text-xs font-semibold text-center">Susu & Telur</p>
-            </div>
-        </div>
+        </a>
     </div>
+</div>
 
     <!-- Bottom Navbar -->
   @include('components.bottom-navbar')

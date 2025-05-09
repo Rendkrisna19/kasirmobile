@@ -3,8 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BayarController;
+use App\Http\Controllers\RekapDataKeuangan;
 use App\Http\Controllers\SettingController;
-
+use App\Http\Controllers\RekapDataKeuanganController;
 Route::get('/', [AuthController::class, 'loginPage'])->name('login.page');
 Route::post('/', [AuthController::class, 'login'])->name('login');
 
@@ -49,3 +50,16 @@ Route::get('/dashboard/products/{id}/edit', [BayarController::class, 'editProduc
 Route::put('/dashboard/products/{id}', [BayarController::class, 'updateProduct'])->name('products.update');
 Route::delete('/dashboard/products/{id}', [BayarController::class, 'destroyProduct'])->name('products.destroy');
 Route::post('/dashboard/products/store', [BayarController::class, 'storeProduct'])->name('products.store');
+
+
+
+//routes ctegory 
+// routes/web.php
+Route::get('/category/foods', [BayarController::class, 'foods'])->name('category.foods');
+Route::get('/category/drinks', [BayarController::class, 'drinks'])->name('category.drinks');
+Route::get('/category/snacks', [BayarController::class, 'snacks'])->name('category.snacks');
+ 
+
+
+
+Route::get('/rekap', [RekapDataKeuanganController::class, 'index'])->name('peges.rekap.index');
