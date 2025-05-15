@@ -3,8 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BayarController;
-use App\Http\Controllers\RekapDataKeuangan;
-use App\Http\Controllers\SettingController;
+
 use App\Http\Controllers\RekapDataKeuanganController;
 Route::get('/', [AuthController::class, 'loginPage'])->name('login.page');
 Route::post('/', [AuthController::class, 'login'])->name('login');
@@ -38,8 +37,7 @@ Route::get('/checkout', [BayarController::class, 'checkout'])->name('pages.bayar
 Route::post('/bayar/store', [BayarController::class, 'bayar'])->name('pages.bayar.store');
 //routes untuk setting edit dan update 
 
-Route::get('/settings', [SettingController::class, 'edit'])->name('settings.edit');
-Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
+
 
 //route untuk menampilkan product
 // CRUD Product
