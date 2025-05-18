@@ -8,7 +8,7 @@
     </div>
 
     <div class="overflow-x-auto">
-        <table class="w-full border border-green-200 shadow-sm rounded overflow-hidden">
+        <table id="rekapanTable" class="w-full border border-green-200 shadow-sm rounded overflow-hidden">
             <thead>
                 <tr class="bg-green-500 text-white text-left">
                     <th class="py-3 px-5 border-b border-green-300">Tanggal</th>
@@ -34,13 +34,104 @@
                 @endforelse
             </tbody>
         </table>
+
+        <!-- Grafik Rekapan -->
+        <div class="mt-10">
+            <h3 class="text-xl font-semibold text-green-600 text-center mb-4">Grafik Rekapan</h3>
+            <canvas id="rekapanChart" class="w-full max-w-4xl mx-auto"></canvas>
+        </div>
     </div>
 
-    <!-- Tombol Kembali -->
     <div class="mt-6 text-center">
         <a href="{{ route('kasir') }}" class="inline-block px-6 py-2 bg-green-500 hover:bg-green-600 text-white font-semibold rounded shadow">
-            ← Kembali ke Kasir
+            ← Kembali
         </a>
     </div>
 </section>
 @endsection
+
+{{-- JS Section --}}
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const labels = @json($rekapan->pluck('tanggal')->map(fn($tgl) => \Carbon\Carbon::parse($tgl)->translatedFormat('d M')));
+        const jumlahTransaksi = @json($rekapan->pluck('jumlah_transaksi'));
+        const totalPemasukan = @json($rekapan->pluck('total_pemasukan'));
+
+        const ctx = document.getElementById('rekapanChart');
+        if (ctx) {
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Jumlah Transaksi',
+                            data: jumlahTransaksi,
+                            backgroundColor: 'rgba(34, 197, 94, 0.5)',
+                            borderColor: 'rgba(34, 197, 94, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Total Pemasukan (Rp)',
+                            data: totalPemasukan,
+                            backgroundColor: 'rgba(16, 185, 129, 0.5)',
+                            borderColor: 'rgba(16, 185, 129, 1)',
+                            borderWidth: 1,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Jumlah Transaksi'
+                            }
+                        },
+                        y1: {
+                            beginAtZero: true,
+                            position: 'right',
+                            grid: {
+                                drawOnChartArea: false
+                            },
+                            title: {
+                                display: true,
+                                text: 'Total Pemasukan (Rp)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+
+    //data tables
+     $(document).ready(function () {
+        $('#rekapanTable').DataTable({
+            "pageLength": 5,
+            "language": {
+                "search": "Cari:",
+                "lengthMenu": "Tampilkan _MENU_ data per halaman",
+                "zeroRecords": "Data tidak ditemukan",
+                "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                "paginate": {
+                    "first": "Awal",
+                    "last": "Akhir",
+                    "next": "→",
+                    "previous": "←"
+                }
+            }
+        });
+    });
+</script>
+@endpush
