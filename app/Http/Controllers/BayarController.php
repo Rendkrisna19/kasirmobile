@@ -210,4 +210,9 @@ class BayarController extends Controller
         $products = Product::where('category', 'Snack')->get();
         return view('pages.category.snacks', compact('products'));
     }
+
+
+
+    //cetak pdf
+    
 }

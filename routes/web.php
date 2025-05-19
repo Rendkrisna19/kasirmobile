@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BayarController;
+use App\Http\Controllers\ProfileController;
 
 use App\Http\Controllers\RekapDataKeuanganController;
 Route::get('/', [AuthController::class, 'loginPage'])->name('login.page');
@@ -56,8 +57,10 @@ Route::post('/dashboard/products/store', [BayarController::class, 'storeProduct'
 Route::get('/category/foods', [BayarController::class, 'foods'])->name('category.foods');
 Route::get('/category/drinks', [BayarController::class, 'drinks'])->name('category.drinks');
 Route::get('/category/snacks', [BayarController::class, 'snacks'])->name('category.snacks');
- 
-
-
-
 Route::get('/rekap', [RekapDataKeuanganController::class, 'index'])->name('peges.rekap.index');
+
+
+
+//routes profile controller
+Route::get('/kasir/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::post('/kasir/profile/update', [ProfileController::class, 'update'])->name('profile.update');

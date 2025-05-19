@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <!-- jQuery (required) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/heroicons@1.0.6/dist/heroicons.min.js"></script>
+
 <!-- DataTables -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
